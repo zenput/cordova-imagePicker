@@ -9,6 +9,7 @@
 #import "ELCAsset.h"
 #import "Donkeyfont.h"
 #import "Photos/PHImageManager.h"
+#import <UIKit/UIKit.h>
 
 @interface ELCAssetCell ()
 
@@ -72,15 +73,21 @@ static const unsigned int gRowMax = 4;
 
         ELCAsset *asset = [_rowAssets objectAtIndex:i];
         PHImageManager *manager = [PHImageManager defaultManager];
-        //[manager requestImageForAsset: asset targetSize:]
-        //CGImageRef *thumbnail =
+        PHImageRequestOptions *requestOptions = nil;
+        requestOptions.synchronous = true;
+
+        __block UIImage *thumbnail;
+        [manager requestImageForAsset: asset.asset targetSize: CGSizeMake(138, 138) contentMode:PHImageContentModeDefault options:requestOptions resultHandler:^void(UIImage *image, NSDictionary *info) {
+            thumbnail = image;
+       }];
+
 
         if (i < [_imageViewArray count]) {
             UIImageView *imageView = [_imageViewArray objectAtIndex:i];
-            imageView.image = [UIImage imageWithCGImage:asset.asset.thumbnail];
+            imageView.image = thumbnail;
             overlaySize = CGSizeMake(CGRectGetWidth(imageView.frame), CGRectGetHeight(imageView.frame));
         } else {
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageWithCGImage:asset.asset.thumbnail]];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:thumbnail];
             [_imageViewArray addObject:imageView];
             overlaySize = CGSizeMake(CGRectGetWidth(imageView.frame), CGRectGetHeight(imageView.frame));
         }

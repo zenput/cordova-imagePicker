@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/PHPhotoLibrary.h>
 #import <Photos/PHAsset.h>
 
 @class ELCAsset;

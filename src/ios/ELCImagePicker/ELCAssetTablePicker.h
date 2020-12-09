@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/PHPhotoLibrary.h>
 #import "ELCAsset.h"
 #import "ELCAssetSelectionDelegate.h"
 #import "ELCAssetPickerFilterDelegate.h"
@@ -14,7 +14,7 @@
 @interface ELCAssetTablePicker : UITableViewController <ELCAssetDelegate>
 
 @property (nonatomic, weak) id <ELCAssetSelectionDelegate> parent;
-@property (nonatomic, strong) ALAssetsGroup *assetGroup;
+@property (nonatomic, strong) PHAssetCollection *assetCollection;
 @property (nonatomic, strong) NSMutableArray *elcAssets;
 @property (nonatomic, strong) IBOutlet UILabel *selectedAssetsLabel;
 @property (nonatomic, assign) BOOL singleSelection;

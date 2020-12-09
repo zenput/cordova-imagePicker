@@ -9,6 +9,7 @@
 #import <Cordova/CDVPlugin.h>
 #import "ELCAlbumPickerController.h"
 #import "ELCImagePickerController.h"
+#import <Photos/PHImageManager.h>
 
 @interface SOSPicker : CDVPlugin <ELCImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate>
 
@@ -20,5 +21,6 @@
 @property (nonatomic, assign) NSInteger width;
 @property (nonatomic, assign) NSInteger height;
 @property (nonatomic, assign) NSInteger quality;
+@property (nonatomic, assign) PHImageRequestOptions requestOptions;
 
 @end

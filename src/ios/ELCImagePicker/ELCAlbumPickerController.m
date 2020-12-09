@@ -11,7 +11,7 @@
 
 @interface ELCAlbumPickerController ()
 
-@property (nonatomic, strong) ALAssetsLibrary *library;
+@property (nonatomic, strong) PHPhotoLibrary *library;
 
 @end
 
@@ -34,7 +34,7 @@
     NSMutableArray *tempArray = [[NSMutableArray alloc] init];
 	self.assetGroups = tempArray;
     
-    ALAssetsLibrary *assetLibrary = [[ALAssetsLibrary alloc] init];
+    PHPhotoLibrary *assetLibrary = [[PHPhotoLibrary alloc] init];
     self.library = assetLibrary;
 
     // Load Albums into assetGroups

@@ -10,6 +10,7 @@
 #import "ELCAlbumPickerController.h"
 #import "ELCImagePickerController.h"
 #import "ELCAssetTablePicker.h"
+#import <Photos/PHImageManager.h>
 
 #define CDV_PHOTO_PREFIX @"cdv_photo_"
 
@@ -58,11 +59,18 @@
     NSError* err = nil;
     NSFileManager* fileMgr = [[NSFileManager alloc] init];
     NSString* filePath;
-    ALAsset* asset = nil;
-    UIImageOrientation orientation = UIImageOrientationUp;;
+    PHAsset* asset = nil;
+    __block UIImageOrientation orientation = UIImageOrientationUp;;
     CGSize targetSize = CGSizeMake(self.width, self.height);
 	for (NSDictionary *dict in info) {
-        asset = [dict objectForKey:@"ALAsset"];
+        asset = [dict objectForKey:@"PHAsset"];
+        PHImageManager *manager = [PHImageManager defaultManager];
+        self.requestOptions = [[PHImageRequestOptions alloc] init];
+        self.requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
+        self.requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+
+        // this one is key
+        self.requestOptions.synchronous = YES;
         // From ELCImagePickerController.m
 
         int i = 1;
@@ -71,14 +79,16 @@
         } while ([fileMgr fileExistsAtPath:filePath]);
         
         @autoreleasepool {
-            ALAssetRepresentation *assetRep = [asset defaultRepresentation];
-            CGImageRef imgRef = NULL;
+            //ALAssetRepresentation *assetRep = [asset defaultRepresentation];
+            __block CGImageRef imgRef = NULL;
             
             //defaultRepresentation returns image as it appears in photo picker, rotated and sized,
             //so use UIImageOrientationUp when creating our image below.
             if (picker.returnsOriginalImage) {
-                imgRef = [assetRep fullResolutionImage];
-                orientation = [assetRep orientation];
+                [manager requestImageForAsset: asset targetSize: PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:self.requestOptions resultHandler:^void(UIImage *image, NSDictionary *info) {
+                    imgRef = image.CGImage;
+                    orientation = image.imageOrientation;
+               }];
             } else {
                 imgRef = [assetRep fullScreenImage];
             }

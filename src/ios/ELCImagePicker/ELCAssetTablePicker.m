@@ -9,6 +9,7 @@
 #import "ELCAssetCell.h"
 #import "ELCAsset.h"
 #import "ELCAlbumPickerController.h"
+#import "Photos/PHCollection.h"
 
 @interface ELCAssetTablePicker ()
 
@@ -72,7 +73,7 @@
 {
     @autoreleasepool {
 
-        [self.assetGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        [self.assetCollection enumerateAssetsUsingBlock:^(PHAsset *result, NSUInteger index, BOOL *stop) {
             
             if (result == nil) {
                 return;

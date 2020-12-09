@@ -12,7 +12,7 @@
 
 //Using auto synthesizers
 
-- (id)initWithAsset:(ALAsset*)asset
+- (id)initWithAsset:(PHAsset*)asset
 {
 	self = [super init];
 	if (self) {

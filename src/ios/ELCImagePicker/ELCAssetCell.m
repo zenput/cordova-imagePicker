@@ -8,6 +8,7 @@
 #import "ELCAssetCell.h"
 #import "ELCAsset.h"
 #import "Donkeyfont.h"
+#import "Photos/PHImageManager.h"
 
 @interface ELCAssetCell ()
 
@@ -70,6 +71,9 @@ static const unsigned int gRowMax = 4;
     for (int i = 0; i < [_rowAssets count]; ++i) {
 
         ELCAsset *asset = [_rowAssets objectAtIndex:i];
+        PHImageManager *manager = [PHImageManager defaultManager];
+        //[manager requestImageForAsset: asset targetSize:]
+        //CGImageRef *thumbnail =
 
         if (i < [_imageViewArray count]) {
             UIImageView *imageView = [_imageViewArray objectAtIndex:i];

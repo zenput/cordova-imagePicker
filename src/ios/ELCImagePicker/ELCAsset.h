@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/PHAsset.h>
 
 @class ELCAsset;
 
@@ -20,10 +21,10 @@
 
 @interface ELCAsset : NSObject
 
-@property (nonatomic, strong) ALAsset *asset;
+@property (nonatomic, strong) PHAsset *asset;
 @property (nonatomic, weak) id<ELCAssetDelegate> parent;
 @property (nonatomic, assign) BOOL selected;
 
-- (id)initWithAsset:(ALAsset *)asset;
+- (id)initWithAsset:(PHAsset *)asset;
 
 @end

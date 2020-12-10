@@ -90,7 +90,10 @@
                     orientation = image.imageOrientation;
                }];
             } else {
-                imgRef = [assetRep fullScreenImage];
+                [manager requestImageForAsset: asset targetSize: targetSize contentMode:PHImageContentModeDefault options:self.requestOptions resultHandler:^void(UIImage *image, NSDictionary *info) {
+                    imgRef = image.CGImage;
+                    orientation = image.imageOrientation;
+               }];
             }
             
             UIImage* image = [UIImage imageWithCGImage:imgRef scale:1.0f orientation:orientation];
